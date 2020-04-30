@@ -1,9 +1,8 @@
 import React from "react";
-import Plane from '../pages/Plane';
+import Plane from '../components/Plane';
 function App() {
   return (
           <Plane/>
-
   );
 }
 

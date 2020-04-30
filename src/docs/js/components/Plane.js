@@ -1,24 +1,22 @@
-import React,{useRef,useEffect} from "react";
+import React,{useEffect} from "react";
 import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {itemsArray} from "../helpers/ListaImgItm";
-import ImgIt from "../components/ImgItem";
-import useMousePosition from '../components/useMousePosition';
+import ImgIt from "./ImgItem";
+import useMousePosition from './useMousePosition';
 import useForceUpdate from 'use-force-update';
 var scroll = new Boolean(false);
+var isDragging = false;
 function AddNewArray() {
   itemsArray.push(new Array(itemsArray[0].length))
-  itemsArray[itemsArray[0].length-1][itemsArray[0].length-1].push(new Array(itemsArray[0].length))
-  // itemsArray.push([<ImgIt /> ,"" ,"","" , "","" , "","", "", "","","" ,"" ,"","" , "","" , "","", "", "","","" ,"" ,"","" , "","" , "","", "", "","", ]);
-  return(
-    itemsArray
-  );
 }
-
+export function HandleDrag(){
+  isDragging=true;
+  console.log(isDragging)
+}
 function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
   scroll=isScrolling;
-  console.log(isScrolling,scroll)
   return (
     <div
       key={key}
@@ -37,21 +35,47 @@ function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
 
 export default function ImgList() {
   var panel = document.getElementById("root");
-  useEffect(() => {
-    forceUpdate();
-  }, [scroll==true ])
+  var slider = document.getElementById("Grid_PinPlane");
   const forceUpdate = useForceUpdate();
-  // console.log(scroll)
   const {x,y}=useMousePosition();
   const ancho=panel.clientWidth;
   const altura=panel.clientHeight;
-  // console.log(x,y)
+
+if(slider!=null){
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  
+  slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    slider.classList.add('active');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+  slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+  slider.addEventListener('mouseup', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+  slider.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 3; //scroll-fast
+    slider.scrollLeft = scrollLeft - walk;
+  });
+}
+
   if(scroll==true && x>=ancho-100){
     AddNewArray();
   }
-    console.log("Vertical: " + window.scrollY);
-    console.log("Horizontal: " + window.scrollX);
-
+  useEffect(() => {
+    forceUpdate();
+  }, [scroll==true && x>=ancho-100 ])
+  itemsArray[0][5]=<ImgIt/>
   return (
       <AutoSizer>
         {({ height, width }) => (

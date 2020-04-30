@@ -2,6 +2,7 @@ import React, { useState, useCallback,useContext} from "react";
 import { useDropzone } from "react-dropzone";
 import Draggable from "react-draggable";
 import "../../../../src/css/App.css";
+import {HandleDrag} from '../components/Plane';
 // const pos;
 function ImgIt( props) {
   
@@ -57,7 +58,7 @@ function ImgIt( props) {
   const controlledPosition = state.controlledPosition;
   return (
     
-<Draggable position={controlledPosition} onDrag={onControlledDrag}>
+<Draggable position={controlledPosition} onDrag={HandleDrag()}>
     <div className="card">
       <div className="card-image">
         {!buttonState ? (
