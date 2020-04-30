@@ -1,0 +1,90 @@
+.card {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 0px;
+    border: 2px solid grey;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    align-items: center;
+  }
+  
+  .flotar {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px black;
+    color: aliceblue;
+    font-size: 15px;
+    width: 40px;
+    height: 30px;
+    font-weight: 900;
+  }
+  .flotar * {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 7px;
+  }
+  .card-image {
+    border: 6px dotter rgba(109, 9, 94, 0.64);
+    align-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 200px;
+    height: 250px;
+    display: flex;
+  }
+  .material-icons {
+    height: 30px;
+    width: 30px;
+  }
+  .flotar * {
+    font-size: 10px;
+    align-content: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .imgcontainer {
+    border: 1.5px gray;
+    border-style: dashed;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: rgba(170, 157, 168, 0.64);
+    align-content: center;
+  }
+  
+  p {
+    align-content: center;
+    text-align: center;
+  }
+  img {
+    margin: 0 auto;
+    vertical-align: middle;
+  }
+  
+  input {
+    width: 200px;
+  }
+  
+  .fileSelectors{
+    margin-top: 25px;
+  }
+  html {
+    font-family: sans-serif;
+    font-size: 12px;
+  }
+  
+
+  html,
+  body,
+  #root {
+    height:100%; 
+    width:100%; 
+    margin: 0px; 
+    padding: 0px; 
+  }
+  
+
+  
