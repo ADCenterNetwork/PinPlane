@@ -1,20 +1,15 @@
-import React, { useState, useCallback,useContext} from "react";
+import React, { useState, useCallback} from "react";
 import { useDropzone } from "react-dropzone";
 import Draggable from "react-draggable";
 import "../../../../src/css/App.css";
-import {HandleDrag} from '../components/Plane';
 // const pos;
-function ImgIt( props) {
+function ImgIt() {
   
   const [buttonState, setButtonState] = useState(false);
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
   const [state, setState] = useState({
-    deltaPosition: {
-      x: 0,
-      y: 0,
-    },
     controlledPosition: {
       x: 0, 
       y: 0,
@@ -22,7 +17,7 @@ function ImgIt( props) {
   });
 
   const onControlledDrag = (e, position) => {
-   // console.log(position.x);
+    console.log(position.x);
     const { x, y } = position; // actualizo la posicion del item
     setState({ controlledPosition: { x, y } });
   };
@@ -58,7 +53,7 @@ function ImgIt( props) {
   const controlledPosition = state.controlledPosition;
   return (
     
-<Draggable position={controlledPosition} onDrag={HandleDrag()}>
+<Draggable position={controlledPosition} onDrag={onControlledDrag}>
     <div className="card">
       <div className="card-image">
         {!buttonState ? (
