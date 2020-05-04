@@ -27,7 +27,7 @@ export default function Drag() {
       const x = e.pageX - slider.offsetLeft;
       const y=e.pageY+slider.offsetTop;
       const walk = (x - startX)*3; //scroll-fast
-      const walk2=(y-startY)*3
+      const walk2=(y-startY)*1
       slider.scrollLeft = scrollLeft - walk;
       slider.scrollTop = scrollTop - walk2;
     });
