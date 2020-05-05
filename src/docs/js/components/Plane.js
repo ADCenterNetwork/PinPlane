@@ -5,14 +5,15 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { itemsArray } from "../helpers/ListaImgItm";
 import useMousePosition from "./useMousePosition";
 import useForceUpdate from "use-force-update";
-import Drag from './ScrollbyMouse';
-var scroll = false;
-var isDragging = false;
+import DragWindow from './ScrollbyMouse';
+import ImgIt from "./ImgItem";
+// var scroll = false;
+
 function AddNewArray() {
   itemsArray.push(new Array(itemsArray[0].length));
 }
 function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
-  scroll = isScrolling;
+  // scroll = isScrolling;
   return (
     <div
       key={key}
@@ -28,14 +29,28 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
     </div>
   );
 }
-
+let isDrag=false;
 export default function ImgList() {
-  var panel = document.getElementById("root");
+  itemsArray[5][5]=<ImgIt/>;
+  // var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
   const { x, y } = useMousePosition();
-  const ancho = panel.clientWidth;
-  const altura = panel.clientHeight;
-  Drag();
+  // const ancho = panel.clientWidth;
+  // const altura = panel.clientHeight;
+  const objectoImgItem=document.querySelector("#Grid_PinPlane > div > div:nth-child(2) > div");
+  if (objectoImgItem != null) {
+    objectoImgItem.addEventListener("mousedown", (e) => {
+      isDrag = true;
+    });
+    objectoImgItem.addEventListener("mouseup", () => {
+      isDrag = false;
+    });
+  }
+if(isDrag===false){
+  DragWindow("no_remove");
+}else{
+  DragWindow("remove");
+}
   // if (scroll === true && x >= ancho - 100) {
   //   AddNewArray();
   // }

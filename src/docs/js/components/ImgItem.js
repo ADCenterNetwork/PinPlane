@@ -17,7 +17,7 @@ function ImgIt() {
   });
 
   const onControlledDrag = (e, position) => {
-    console.log(position.x);
+    // console.log(position.x);
     const { x, y } = position; // actualizo la posicion del item
     setState({ controlledPosition: { x, y } });
   };
