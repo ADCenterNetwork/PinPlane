@@ -81,8 +81,8 @@
   body,
   #root {
     overflow: hidden;
-    height:101%; 
-    width:101%; 
+    height:100%; 
+    width:100%; 
     margin: 0px; 
     padding: 0px; 
   }

@@ -1,19 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useContext,useEffect } from "react";
 import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { itemsArray } from "../helpers/ListaImgItm";
 import useMousePosition from "./useMousePosition";
 import useForceUpdate from "use-force-update";
-import DragWindow from './ScrollbyMouse';
+import DragWindow from "./ScrollbyMouse";
 import ImgIt from "./ImgItem";
-// var scroll = false;
-
+import { dragImgItm } from "../pages/App";
+var scroll = false;
 function AddNewArray() {
   itemsArray.push(new Array(itemsArray[0].length));
 }
-function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
-  // scroll = isScrolling;
+function arrayVertical() {
+  for (let i = 0; i < itemsArray.length; i++) {
+    itemsArray[i].push(new Array([""]));
+  }
+}
+function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
+  scroll = isScrolling;
   return (
     <div
       key={key}
@@ -29,34 +34,31 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
     </div>
   );
 }
-let isDrag=false;
+// let isDrag=false;
 export default function ImgList() {
-  itemsArray[5][5]=<ImgIt/>;
-  // var panel = document.getElementById("root");
+  itemsArray[0][3] = <ImgIt />;
+  itemsArray[1][3] = <ImgIt />;
+  itemsArray[5][5] = <ImgIt />;
+  var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
   const { x, y } = useMousePosition();
-  // const ancho = panel.clientWidth;
-  // const altura = panel.clientHeight;
-  const objectoImgItem=document.querySelector("#Grid_PinPlane > div > div:nth-child(2) > div");
-  if (objectoImgItem != null) {
-    objectoImgItem.addEventListener("mousedown", (e) => {
-      isDrag = true;
-    });
-    objectoImgItem.addEventListener("mouseup", () => {
-      isDrag = false;
-    });
+  const ancho = panel.clientWidth;
+  const altura = panel.clientHeight;
+  const { value, setValue } = useContext(dragImgItm);
+  DragWindow(value, setValue);
+
+  if (scroll === true && x >= ancho - 100) {
+    AddNewArray();
   }
-if(isDrag===false){
-  DragWindow("no_remove");
-}else{
-  DragWindow("remove");
-}
-  // if (scroll === true && x >= ancho - 100) {
-  //   AddNewArray();
-  // }
-  // useEffect(() => {
-  //   forceUpdate();
-  // }, [scroll === true && x >= ancho - 100]);
+
+  useEffect(() => {
+    forceUpdate();
+  }, [scroll]);
+
+  //vertical
+  if (scroll === true && y >= altura - 100) {
+    arrayVertical();
+  }
   return (
     <AutoSizer>
       {({ height, width }) => (
