@@ -3,3 +3,8 @@
     border: 1px solid #800ecc;
     background-color: rgb(17, 97, 189); 
   }
+  .Grid.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    transform: scale(1);
+  }

@@ -34,31 +34,32 @@ function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
     </div>
   );
 }
-// let isDrag=false;
 export default function ImgList() {
   itemsArray[0][3] = <ImgIt />;
   itemsArray[1][3] = <ImgIt />;
-  itemsArray[5][5] = <ImgIt />;
+  itemsArray[10][14] = <ImgIt />;
   var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
   const { x, y } = useMousePosition();
   const ancho = panel.clientWidth;
   const altura = panel.clientHeight;
   const { value, setValue } = useContext(dragImgItm);
+
   DragWindow(value, setValue);
 
   if (scroll === true && x >= ancho - 100) {
     AddNewArray();
   }
 
-  useEffect(() => {
-    forceUpdate();
-  }, [scroll]);
-
+ 
   //vertical
   if (scroll === true && y >= altura - 100) {
     arrayVertical();
   }
+  useEffect(() => {
+    forceUpdate();
+  }, [scroll === true && x >= ancho - 100]);
+
   return (
     <AutoSizer>
       {({ height, width }) => (
