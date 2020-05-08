@@ -6,35 +6,34 @@ export default function DragWindow(value,setValue) {
     var scrollTop
     let startY;
     const slider = document.querySelector("#Grid_PinPlane") ;
-    const img=document.getElementsByClassName("card react-draggable");
-useEffect(() => {
-    return () => {
-        for (var i = 0 ; i < img.length; i++) {
-            img[i].addEventListener("mousedown", () => {
-                setValue(true);
-                isDown = false;
-              });
-              img[i].addEventListener("mouseup", () => {
-                setValue(false);
-                isDown = false;
-              });
-            img[i].addEventListener("mousemove", () => {
-            setValue(true);
-            isDown = false;
-          });
-            img[i].addEventListener("mouseleave", () => {
-            setValue(false);
-            isDown = false;
-          });
-          img[i].addEventListener("mouseout", () => {
-            setValue(false);
-            isDown = false;
-          });
-        }
-    }
-})
+//     const img=document.getElementsByClassName("card react-draggable");
+// useEffect(() => {
+//     return () => {
+//         for (var i = 0 ; i < img.length; i++) {
+//             img[i].addEventListener("mousedown", (e) => {
+//                 setValue(true);
+//                 isDown = false;
+//               });
+//               img[i].addEventListener("mouseup", (e) => {
+//                 setValue(false);
+//                 isDown = false;
+//               });
+//             img[i].addEventListener("mousemove", (e) => {
+//             setValue(true);
+//             isDown = false;
+//           });
+//             img[i].addEventListener("mouseleave", (e) => {
+//             setValue(false);
+//             isDown = false;
+//           });
+//           img[i].addEventListener("mouseout", (e) => {
+//             setValue(false);
+//             isDown = false;
+//           });
+//         }
+//     }
+// })
 
-    
 function RespondMouseDown(e){
     slider.classList.add('active');
     setValue(false);
@@ -43,7 +42,6 @@ function RespondMouseDown(e){
     scrollLeft = slider.scrollLeft;
     scrollTop=slider.scrollTop;
     startY = e.pageY - slider.offsetTop;
-
 }
 function RespondMouseUp() {
     setValue(true);

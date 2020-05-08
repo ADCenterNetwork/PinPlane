@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -17,7 +17,8 @@ function arrayVertical() {
     itemsArray[i].push(new Array([""]));
   }
 }
-function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
+
+function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
   scroll = isScrolling;
   return (
     <div
@@ -35,30 +36,34 @@ function cellRenderer({ columnIndex, key, rowIndex,isScrolling, style }) {
   );
 }
 export default function ImgList() {
+  ///////////////////////////////////////////////////////////////////////////////
+  /////      useDrag-ReactDnD                                              /////
+  /////
+  //////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
   itemsArray[0][3] = <ImgIt />;
   itemsArray[1][3] = <ImgIt />;
-  itemsArray[10][14] = <ImgIt />;
   var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
-  const { x, y } = useMousePosition();
+  const {x} = useMousePosition();
   const ancho = panel.clientWidth;
-  const altura = panel.clientHeight;
   const { value, setValue } = useContext(dragImgItm);
-
+  var isPossible = scroll === true && x >= ancho - 500;
   DragWindow(value, setValue);
 
-  if (scroll === true && x >= ancho - 100) {
+  if (isPossible) {
     AddNewArray();
   }
-
- 
   //vertical
-  if (scroll === true && y >= altura - 100) {
+  if (isPossible) {
     arrayVertical();
   }
   useEffect(() => {
-    forceUpdate();
-  }, [scroll === true && x >= ancho - 100]);
+    return () => {
+      forceUpdate();
+    };
+  }, [isPossible]);
 
   return (
     <AutoSizer>
