@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect} from "react";
 import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -36,11 +36,6 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
   );
 }
 export default function ImgList() {
-  ///////////////////////////////////////////////////////////////////////////////
-  /////      useDrag-ReactDnD                                              /////
-  /////
-  //////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
 
   itemsArray[0][3] = <ImgIt />;
   itemsArray[1][3] = <ImgIt />;
@@ -49,7 +44,7 @@ export default function ImgList() {
   const {x} = useMousePosition();
   const ancho = panel.clientWidth;
   const { value, setValue } = useContext(dragImgItm);
-  var isPossible = scroll === true && x >= ancho - 500;
+  var isPossible = scroll === true && x >= ancho - 200;
   DragWindow(value, setValue);
 
   if (isPossible) {

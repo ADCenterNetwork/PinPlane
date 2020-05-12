@@ -1,4 +1,4 @@
-import { useEffect} from 'react';
+
 export default function DragWindow(value,setValue) {
     let isDown = false;
     let startX;
@@ -6,33 +6,31 @@ export default function DragWindow(value,setValue) {
     var scrollTop
     let startY;
     const slider = document.querySelector("#Grid_PinPlane") ;
-//     const img=document.getElementsByClassName("card react-draggable");
-// useEffect(() => {
-//     return () => {
-//         for (var i = 0 ; i < img.length; i++) {
-//             img[i].addEventListener("mousedown", (e) => {
-//                 setValue(true);
-//                 isDown = false;
-//               });
-//               img[i].addEventListener("mouseup", (e) => {
-//                 setValue(false);
-//                 isDown = false;
-//               });
-//             img[i].addEventListener("mousemove", (e) => {
-//             setValue(true);
-//             isDown = false;
-//           });
-//             img[i].addEventListener("mouseleave", (e) => {
-//             setValue(false);
-//             isDown = false;
-//           });
-//           img[i].addEventListener("mouseout", (e) => {
-//             setValue(false);
-//             isDown = false;
-//           });
-//         }
-//     }
-// })
+    const img=document.getElementsByClassName("card react-draggable");
+        for (var i = 0 ; i < img.length; i++) {
+            img[i].addEventListener("mousedown", (e) => {
+                setValue(true);
+                isDown = false;
+              });
+              img[i].addEventListener("mouseup", (e) => {
+                setValue(false);
+                isDown = false;
+              });
+            img[i].addEventListener("mousemove", (e) => {
+            setValue(true);
+            isDown = false;
+          });
+            img[i].addEventListener("mouseleave", (e) => {
+            setValue(false);
+            isDown = false;
+          });
+          img[i].addEventListener("mouseout", (e) => {
+            setValue(false);
+            isDown = false;
+          });
+        }
+    
+
 
 function RespondMouseDown(e){
     slider.classList.add('active');

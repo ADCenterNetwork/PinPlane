@@ -2,6 +2,8 @@
   .Grid {
     border: 1px solid #800ecc;
     background-color: rgb(17, 97, 189); 
+    margin: 0px; 
+    padding: 0px; 
   }
   .Grid.active {
     cursor: grabbing;
