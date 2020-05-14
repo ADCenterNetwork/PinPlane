@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -20,8 +20,11 @@ function arrayVertical() {
 
 function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
   scroll = isScrolling;
+  var img = document.getElementsByClassName("card react-draggable");
   return (
     <div
+      id={rowIndex}
+      className={columnIndex}
       key={key}
       style={{
         ...style,
@@ -35,17 +38,25 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
     </div>
   );
 }
-export default function ImgList() {
 
-  itemsArray[0][3] = <ImgIt />;
-  itemsArray[1][3] = <ImgIt />;
+export default function ImgList() {
+  const [position1, setposition1] = useState({ x: 100, y: 61 });
+  const [position2, setposition2] = useState({ x: 100, y: 200 });
+
+  itemsArray[0][3] = <ImgIt id={1} position={position1} />;
+  itemsArray[1][3] = <ImgIt id={2} position={position2} />;
   var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
-  const {x} = useMousePosition();
+  const { x } = useMousePosition();
   const ancho = panel.clientWidth;
   const { value, setValue } = useContext(dragImgItm);
   var isPossible = scroll === true && x >= ancho - 200;
   DragWindow(value, setValue);
+
+  useEffect(() => {
+    setposition1(JSON.parse(sessionStorage.getItem("card1")));
+    setposition2(JSON.parse(sessionStorage.getItem("card2")));
+  }, [sessionStorage.getItem("card1"), sessionStorage.getItem("card2")]);
 
   if (isPossible) {
     AddNewArray();
@@ -63,17 +74,21 @@ export default function ImgList() {
   return (
     <AutoSizer>
       {({ height, width }) => (
-        <PinPlane
-          className="Grid"
-          id="Grid_PinPlane"
-          cellRenderer={cellRenderer}
-          columnCount={itemsArray[0].length}
-          columnWidth={330}
-          height={height}
-          rowCount={itemsArray.length}
-          rowHeight={330}
-          width={width}
-        />
+        <div style={{ height: height, width: width }}>
+          <PinPlane
+            className="Grid"
+            id="Grid_PinPlane"
+            cellRenderer={cellRenderer}
+            columnCount={itemsArray[0].length}
+            columnWidth={330}
+            height={height}
+            rowCount={itemsArray.length}
+            rowHeight={330}
+            width={width}
+          >
+            <ImgIt />
+          </PinPlane>
+        </div>
       )}
     </AutoSizer>
   );

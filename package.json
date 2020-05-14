@@ -23,6 +23,7 @@
     "jquery": "^3.5.0",
     "jss": "^10.1.1",
     "jss-preset-default": "^10.1.1",
+    "memoize": "^0.1.1",
     "memoize-one": "^5.1.1",
     "node-sass": "^4.14.0",
     "rc-slider": "^9.2.4",
