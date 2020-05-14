@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Draggable from "react-draggable";
+import useMousePosition from "./useMousePosition";
 import "../../../../src/css/App.css";
 // const pos;
 
@@ -9,6 +10,7 @@ function ImgIt(props) {
   const [currentIMG, setCurrentImg] = useState("");
   const [dropIMG, setDropIMG] = useState("");
   const [srcImg, setSrcImg] = useState("");
+  const { x, y } = useMousePosition();
 
   const [state, setState] = useState({
     controlledPosition: {
@@ -50,12 +52,8 @@ function ImgIt(props) {
     setButtonState(true);
   };
 
-  const onStopDrag = (e) => {
-    let card = document.getElementById(e.target.id);
-    console.log(card);
-    console.log(e);
-    console.log("x : " + e.x + " y : " + e.y);
-    let position = { x: e.x, y: e.y };
+  const onStopDrag = (e, ui) => {
+    let position = { x: ui.x + ui.deltaX, y: ui.y + ui.deltaY };
     sessionStorage.setItem("card" + e.target.id, JSON.stringify(position));
   };
 
@@ -65,6 +63,7 @@ function ImgIt(props) {
       position={props.position}
       onDrag={onControlledDrag}
       onStop={onStopDrag}
+      // bounds={".ReactVirtualized__Grid__innerScrollContainer"}
     >
       <div className="card">
         <div className="card-image" id={props.id}>

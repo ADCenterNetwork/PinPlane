@@ -9,22 +9,34 @@ import DragWindow from "./ScrollbyMouse";
 import ImgIt from "./ImgItem";
 import { dragImgItm } from "../pages/App";
 var scroll = false;
+// function AddNewArray() {
+//   itemsArray.push(new Array(itemsArray[0].length));
+// }
+// function arrayVertical() {
+//   for (let i = 0; i < itemsArray.length; i++) {
+//     itemsArray[i].push(new Array([""]));
+//   }
+// }
 function AddNewArray() {
-  itemsArray.push(new Array(itemsArray[0].length));
-}
-function arrayVertical() {
+  var x = itemsArray.length;
+  x++;
+  console.log(itemsArray);
+  itemsArray.push(new Array(x));
   for (let i = 0; i < itemsArray.length; i++) {
-    itemsArray[i].push(new Array([""]));
+    itemsArray[i].length = x;
+    for (let j = 0; j < itemsArray[i].length; j++) {
+      if (itemsArray[i][j] !== i.toString + "," + j.toString) {
+        itemsArray[i][j] = "" + i + j;
+      }
+    }
   }
 }
-
 function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
   scroll = isScrolling;
   var img = document.getElementsByClassName("card react-draggable");
   return (
     <div
-      id={rowIndex}
-      className={columnIndex}
+      id={rowIndex + "" + columnIndex}
       key={key}
       style={{
         ...style,
@@ -40,15 +52,20 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
 }
 
 export default function ImgList() {
-  const [position1, setposition1] = useState({ x: 100, y: 61 });
-  const [position2, setposition2] = useState({ x: 100, y: 200 });
+  const [position1, setposition1] = useState({ x: 0, y: 61 });
+  const [position2, setposition2] = useState({ x: 20, y: 200 });
+
+  // sessionStorage.setItem("card1", JSON.stringify(position1));
+  // sessionStorage.setItem("card2", JSON.stringify(position2));
 
   itemsArray[0][3] = <ImgIt id={1} position={position1} />;
   itemsArray[1][3] = <ImgIt id={2} position={position2} />;
+
   var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
-  const { x } = useMousePosition();
+  const { x, y } = useMousePosition();
   const ancho = panel.clientWidth;
+  const alto = panel.clientHeight;
   const { value, setValue } = useContext(dragImgItm);
   var isPossible = scroll === true && x >= ancho - 200;
   DragWindow(value, setValue);
@@ -62,15 +79,27 @@ export default function ImgList() {
     AddNewArray();
   }
   //vertical
-  if (isPossible) {
-    arrayVertical();
-  }
+  // if (isPossible) {
+  //   arrayVertical();
+  // }
   useEffect(() => {
     return () => {
       forceUpdate();
     };
   }, [isPossible]);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (
+  //       position1.x >= ancho ||
+  //       position2.x >= ancho ||
+  //       position1.y >= alto ||
+  //       position2.y >= alto
+  //     ) {
+  //       AddNewArray();
+  //     }
+  //   }, 300);
+  // }, [sessionStorage.getItem("card1"), sessionStorage.getItem("card2")]);
   return (
     <AutoSizer>
       {({ height, width }) => (
