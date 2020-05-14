@@ -99,13 +99,21 @@ export default function ImgList() {
         position1.y >= alto ||
         position2.y >= alto
       ) {
-        let suma = vecX1 + 1;
-        console.log(suma);
-        setvecX1(suma);
+        // let suma = vecX1 + 1;
+        // console.log(suma);
+        // setvecX1(10);
+        document.getElementById("#03").removeChild("#1");
+        document.getElementById("#13").removeChild();
         AddNewArray();
       }
     }, 300);
-  }, [sessionStorage.getItem("card1"), sessionStorage.getItem("card2")]);
+  }, [
+    sessionStorage.getItem("card1"),
+    sessionStorage.getItem("card2"),
+    vecX1,
+    position1,
+    position2,
+  ]);
   return (
     <AutoSizer>
       {({ height, width }) => (
