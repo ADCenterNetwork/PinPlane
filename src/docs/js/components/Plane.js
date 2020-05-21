@@ -56,9 +56,10 @@ export default function ImgList() {
   const [position2, setposition2] = useState({ x: 20, y: 200 });
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(3);
-
-  // sessionStorage.setItem("card1", JSON.stringify(position1));
-  // sessionStorage.setItem("card2", JSON.stringify(position2));
+  useEffect(() => {
+    sessionStorage.setItem("card1", JSON.stringify(position1));
+    sessionStorage.setItem("card2", JSON.stringify(position2));
+  }, []);
 
   itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
   itemsArray[1][3] = <ImgIt id={2} position={position2} />;
@@ -77,13 +78,10 @@ export default function ImgList() {
     setposition2(JSON.parse(sessionStorage.getItem("card2")));
   }, [sessionStorage.getItem("card1"), sessionStorage.getItem("card2")]);
 
-  if (isPossible) {
-    AddNewArray();
-  }
-  //vertical
   // if (isPossible) {
-  //   arrayVertical();
+  //   AddNewArray();
   // }
+
   useEffect(() => {
     return () => {
       forceUpdate();
@@ -91,29 +89,15 @@ export default function ImgList() {
   }, [isPossible]);
 
   //In case of error delete this code
+
   useEffect(() => {
-    setTimeout(() => {
-      if (
-        position1.x >= ancho ||
-        position2.x >= ancho ||
-        position1.y >= alto ||
-        position2.y >= alto
-      ) {
-        // let suma = vecX1 + 1;
-        // console.log(suma);
-        // setvecX1(10);
-        document.getElementById("#03").removeChild("#1");
-        document.getElementById("#13").removeChild();
-        AddNewArray();
-      }
-    }, 300);
-  }, [
-    sessionStorage.getItem("card1"),
-    sessionStorage.getItem("card2"),
-    vecX1,
-    position1,
-    position2,
-  ]);
+    if (isPossible) {
+      AddNewArray();
+      console.log(itemsArray.length);
+      let vX = vecX1 + 1;
+      setvecX1(vX);
+    }
+  }, [isPossible]);
   return (
     <AutoSizer>
       {({ height, width }) => (
