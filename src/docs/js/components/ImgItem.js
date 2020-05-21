@@ -63,9 +63,10 @@ function ImgIt(props) {
       position={props.position}
       onDrag={onControlledDrag}
       onStop={onStopDrag}
+      id={props.id}
       // bounds={".ReactVirtualized__Grid__innerScrollContainer"}
     >
-      <div className="card">
+      <div className="card" id={props.id}>
         <div className="card-image" id={props.id}>
           {!buttonState ? (
             <img
