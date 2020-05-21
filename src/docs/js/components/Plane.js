@@ -52,34 +52,17 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
 }
 
 export default function ImgList() {
-  const [position1, setposition1] = useState({ x: -100, y: 61 });
-  const [position2, setposition2] = useState({ x: -300, y: 125 });
+  const [position1, setposition1] = useState({ x: 0, y: 61 });
+  const [position2, setposition2] = useState({ x: 20, y: 200 });
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(3);
-<<<<<<< HEAD
-=======
-
->>>>>>> 2466fd5168f61684c56684d228025b662d011d83
   useEffect(() => {
     sessionStorage.setItem("card1", JSON.stringify(position1));
     sessionStorage.setItem("card2", JSON.stringify(position2));
   }, []);
-<<<<<<< HEAD
-=======
-  const MoveItem = () => {
-    console.log("move");
-    itemsArray[1][3] = "";
-    console.log(itemsArray[1][3]);
-    let img = document.getElementById("1");
-    img.parentNode.removeChild(img);
-    itemsArray[2][8] = <ImgIt id={1} position={position1} />;
-  };
->>>>>>> 2466fd5168f61684c56684d228025b662d011d83
 
   itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
   itemsArray[1][3] = <ImgIt id={2} position={position2} />;
-
-  itemsArray[3][2] = <button onClick={MoveItem}>Move Item</button>;
 
   var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
@@ -87,10 +70,7 @@ export default function ImgList() {
   const ancho = panel.clientWidth;
   const alto = panel.clientHeight;
   const { value, setValue } = useContext(dragImgItm);
-  var isPossible = false;
-  var isPossibleY = false;
-  isPossible = scroll === true && x >= ancho - 500;
-  isPossibleY = scroll === true && y >= alto - 200;
+  var isPossible = scroll === true && x >= ancho - 200;
   DragWindow(value, setValue);
 
   useEffect(() => {
@@ -98,28 +78,16 @@ export default function ImgList() {
     setposition2(JSON.parse(sessionStorage.getItem("card2")));
   }, [sessionStorage.getItem("card1"), sessionStorage.getItem("card2")]);
 
-<<<<<<< HEAD
   // if (isPossible) {
   //   AddNewArray();
   // }
-=======
-  if (isPossibleY) {
-    AddNewArray();
-    console.log(itemsArray.length);
-    setvecY1(vecY1 + 1);
-  }
->>>>>>> 2466fd5168f61684c56684d228025b662d011d83
 
   useEffect(() => {
-    if (isPossible) {
-      AddNewArray();
-      console.log(itemsArray.length);
-      let vX = vecX1 + 1;
-      setvecX1(vX);
-    }
+    return () => {
+      forceUpdate();
+    };
   }, [isPossible]);
 
-<<<<<<< HEAD
   //In case of error delete this code
 
   useEffect(() => {
@@ -130,22 +98,24 @@ export default function ImgList() {
       setvecX1(vX);
     }
   }, [isPossible]);
-=======
->>>>>>> 2466fd5168f61684c56684d228025b662d011d83
   return (
     <AutoSizer>
       {({ height, width }) => (
-        <PinPlane
-          className="Grid"
-          id="Grid_PinPlane"
-          cellRenderer={cellRenderer}
-          columnCount={itemsArray[0].length}
-          columnWidth={330}
-          height={height}
-          rowCount={itemsArray.length}
-          rowHeight={330}
-          width={width}
-        ></PinPlane>
+        <div style={{ height: height, width: width }}>
+          <PinPlane
+            className="Grid"
+            id="Grid_PinPlane"
+            cellRenderer={cellRenderer}
+            columnCount={itemsArray[0].length}
+            columnWidth={330}
+            height={height}
+            rowCount={itemsArray.length}
+            rowHeight={330}
+            width={width}
+          >
+            <ImgIt />
+          </PinPlane>
+        </div>
       )}
     </AutoSizer>
   );
