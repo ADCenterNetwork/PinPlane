@@ -54,6 +54,7 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
 export default function ImgList() {
   const [position1, setposition1] = useState({ x: 0, y: 61 });
   const [position2, setposition2] = useState({ x: 20, y: 200 });
+  const [currentPos, setcurrentPos] = useState("dsa");
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(3);
   useEffect(() => {
@@ -61,7 +62,9 @@ export default function ImgList() {
     sessionStorage.setItem("card2", JSON.stringify(position2));
   }, []);
 
-  itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+  itemsArray[vecY1][vecX1] = (
+    <ImgIt id={1} position={position1} currentPos={currentPos} />
+  );
   itemsArray[1][3] = <ImgIt id={2} position={position2} />;
 
   var panel = document.getElementById("root");
@@ -87,6 +90,21 @@ export default function ImgList() {
       forceUpdate();
     };
   }, [isPossible]);
+
+  ////ON DRAG POS
+
+  useEffect(() => {
+    let elemento1 = document.getElementById("1");
+    // if (elemento1.posi == ancho - 400) {
+
+    //   AddNewArray();
+    //   console.log(itemsArray.length);
+    //   let vX = vecX1 + 1;
+    //   setvecX1(vX);
+    // }
+    console.log(currentPos);
+    console.log();
+  }, [currentPos]);
 
   //In case of error delete this code
 

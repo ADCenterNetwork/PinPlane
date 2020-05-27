@@ -21,6 +21,10 @@ function ImgIt(props) {
   const onControlledDrag = (e, position) => {
     const { x, y } = position; // actualizo la posicion del item
     setState({ controlledPosition: { x, y } });
+    console.log(e.target.id);
+    setState({
+      currentPos: e.target.id,
+    });
   };
   const onDrop = useCallback((acceptedFiles) => {
     let string = acceptedFiles[0].name.split("\\");
