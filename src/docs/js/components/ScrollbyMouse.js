@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+
 export default function DragWindow() {
   let isDown = false;
   let startX;
@@ -6,41 +6,6 @@ export default function DragWindow() {
   var scrollTop;
   let startY;
   var slider = document.querySelector("#Grid_PinPlane");
-  var img = document.getElementsByClassName("card react-draggable");
-  // for (var i = 0; i < img.length; i++) {
-  //   img[i].addEventListener("mouseenter", (e) => {
-
-  //     isDown = false;
-  //   });
-  //   img[i].addEventListener("mouseover", (e) => {
-
-  //     isDown = false;
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   for (var i = 0; i < img.length; i++) {
-  //     img[i].addEventListener("mouseenter", (e) => {
-
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //     img[i].addEventListener("mouseover", (e) => {
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //     img[i].addEventListener("mousedown", (e) => {
-  //       isDown = false;
-  //     });
-  //     img[i].addEventListener("mouseup", (e) => {
-  //       isDown = false;
-  //     });
-  //     img[i].addEventListener("mousemove", (e) => {
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //   }
-  // });
 
   function RespondMouseDown(e) {
     slider.classList.add("active");
