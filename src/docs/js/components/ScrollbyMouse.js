@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from "react";
-export default function DragWindow(value, setValue) {
+export default function DragWindow() {
   let isDown = false;
   let startX;
   let scrollLeft;
