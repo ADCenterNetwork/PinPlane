@@ -103,7 +103,7 @@ export default function ImgList() {
     //   setvecX1(vX);
     // }
     console.log(currentPos);
-    console.log();
+    console.log("");
   }, [currentPos]);
 
   //In case of error delete this code

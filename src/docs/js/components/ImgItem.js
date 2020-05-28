@@ -19,6 +19,7 @@ function ImgIt(props) {
     },
   });
   const onControlledDrag = (e, position) => {
+    e.stopPropagation();
     const { x, y } = position; // actualizo la posicion del item
     setState({ controlledPosition: { x, y } });
     console.log(e.target.id);
@@ -67,6 +68,9 @@ function ImgIt(props) {
       position={props.position}
       onDrag={onControlledDrag}
       onStop={onStopDrag}
+      onStart={(e) => {
+        e.stopPropagation();
+      }}
       id={props.id}
       // bounds={".ReactVirtualized__Grid__innerScrollContainer"}
     >
