@@ -49,7 +49,6 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
       style={{
         ...style,
         left: style.left + 30,
-        top: style.top + 30,
         width: style.width - 30,
         height: style.height - 30,
       }}
@@ -101,8 +100,8 @@ export default function ImgList() {
 
   useEffect(() => {
     if (value.move==true) { 
-      setvecX1(Math.floor(value.x/300));
-      setvecY1(Math.floor(value.y/300));
+      setvecX1(Math.floor(value.x/330));
+      setvecY1(Math.floor(value.y/330));
       
     itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
       console.log(itemsArray)
