@@ -29,7 +29,7 @@ posArray.length = x;
 
     for (let j = 0; j < itemsArray[i].length; j++) {
       if (itemsArray[i][j] !== i.toString + "," + j.toString) {
-        itemsArray[i][j] = "" + i + j;
+        itemsArray[i][j] = "";
       }
       let tmpstr = i + "" + j;
       celda = document.getElementById(tmpstr);
@@ -101,8 +101,11 @@ export default function ImgList() {
 
   useEffect(() => {
     if (value.move==true) { 
-      setvecX1(Math.floor(value.x/330));
-      setvecY1(Math.floor(value.y/330));
+      setvecX1(Math.floor(value.x/300));
+      setvecY1(Math.floor(value.y/300));
+      
+    itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+      console.log(itemsArray)
     }
   }, [value.move]);
 
