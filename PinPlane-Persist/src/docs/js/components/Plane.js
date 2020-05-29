@@ -60,7 +60,7 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
 }
 
 export default function ImgList() {
-  const [position1, setposition1] = useState({ x: 0, y: 61 });
+  const [position1, setposition1] = useState({ x: 0, y: 60 });
   const [position2, setposition2] = useState({ x: 0, y: 0 });
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(0);
