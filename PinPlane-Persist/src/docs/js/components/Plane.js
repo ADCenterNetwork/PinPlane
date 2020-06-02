@@ -3,12 +3,10 @@ import { Grid as PinPlane } from "react-virtualized";
 import "../../../css/style.css";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { itemsArray } from "../helpers/ListaImgItm";
-import useMousePosition from "./useMousePosition";
 import useForceUpdate from "use-force-update";
 import DragWindow from "./ScrollbyMouse";
 import ImgIt from "./ImgItem";
 import {positionContext} from '../pages/App';
-var scroll = false;
 var posArray = new Array(9);
 function AddNewArray() {
   var x = itemsArray.length;
@@ -40,8 +38,6 @@ posArray.length = x;
   }
 }
 function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
-  scroll = isScrolling;
-  var img = document.getElementsByClassName("card react-draggable");
   return (
     <div
       id={rowIndex + "" + columnIndex}
@@ -49,6 +45,7 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
       style={{
         ...style,
         left: style.left + 30,
+        top: style.top + 30,
         width: style.width - 30,
         height: style.height - 30,
       }}
@@ -59,8 +56,7 @@ function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
 }
 
 export default function ImgList() {
-  const [position1, setposition1] = useState({ x: 0, y: 60 });
-  const [position2, setposition2] = useState({ x: 0, y: 0 });
+  const [position1, setposition1] = useState({ x: 0, y: 61 });
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(0);
   const {value,setValue }= useContext(positionContext)
@@ -70,14 +66,7 @@ export default function ImgList() {
   }, []);
 
  // itemsArray[1][3] = <ImgIt id={2} position={position2} />;
-  var imgSize = 600;
-  var panel = document.getElementById("root");
   const forceUpdate = useForceUpdate();
-  const { x, y } = useMousePosition();
-  const ancho = panel.clientWidth;
-  const alto = panel.clientHeight;
-  
-  var isPossible = scroll === true && x >= ancho - imgSize;
   DragWindow();
 
   useEffect(() => {
@@ -93,7 +82,7 @@ export default function ImgList() {
     console.log("entra aqui: " +vecY1  + vecX1);
     AddNewArray();
     itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
-    console.log(itemsArray)
+    console.log(itemsArray);
     return () => {
       forceUpdate();
     };
@@ -103,9 +92,6 @@ export default function ImgList() {
     if (value.move==true) { 
       setvecX1(Math.floor(value.x/330));
       setvecY1(Math.floor(value.y/330));
-      
-    // itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
-    //   console.log(itemsArray)
     }
   }, [value.move]);
 
