@@ -78,7 +78,7 @@ export default function ImgList() {
   const alto = panel.clientHeight;
   
   var isPossible = scroll === true && x >= ancho - imgSize;
-  DragWindow(value, setValue);
+  DragWindow();
 
   useEffect(() => {
     setposition1(JSON.parse(sessionStorage.getItem("1")));
@@ -93,6 +93,7 @@ export default function ImgList() {
     console.log("entra aqui: " +vecY1  + vecX1);
     AddNewArray();
     itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+    console.log(itemsArray)
     return () => {
       forceUpdate();
     };
@@ -103,8 +104,8 @@ export default function ImgList() {
       setvecX1(Math.floor(value.x/330));
       setvecY1(Math.floor(value.y/330));
       
-    itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
-      console.log(itemsArray)
+    // itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+    //   console.log(itemsArray)
     }
   }, [value.move]);
 
