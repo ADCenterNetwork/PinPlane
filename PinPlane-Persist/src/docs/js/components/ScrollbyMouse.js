@@ -1,4 +1,5 @@
-import react, { useState, useEffect } from "react";
+import react, { useEffect,useContext } from "react";
+import { scrollPos } from "../pages/App";
 export default function DragWindow() {
   let isDown = false;
   let startX;
@@ -6,7 +7,7 @@ export default function DragWindow() {
   var scrollTop;
   let startY;
   var slider = document.querySelector("#Grid_PinPlane");
-  var img = document.getElementsByClassName("card react-draggable");
+  const { scrollVal, setScrollVall } = useContext(scrollPos);
   // for (var i = 0; i < img.length; i++) {
   //   img[i].addEventListener("mouseenter", (e) => {
 
@@ -81,6 +82,7 @@ export default function DragWindow() {
     e.stopPropagation();
     const x = e.pageX - slider.offsetLeft;
     const y = e.pageY + slider.offsetTop;
+
     const walk = (x - startX) * 3; //scroll-fast
     const walk2 = (y - startY) * 1;
     slider.scrollLeft = scrollLeft - walk;
@@ -93,5 +95,18 @@ export default function DragWindow() {
     slider.addEventListener("mouseup", RespondMouseUp);
     slider.addEventListener("mousemove", (e) => RespondMouseMove(e));
     slider.addEventListener("mouseenter", ResponseEnter);
+    var scrollX = Math.floor(slider.scrollLeft + slider.clientWidth);
+    var scrollY = Math.floor(slider.scrollTop + slider.clientHeight);
+    var Height=slider.scrollHeight - 600
+    var Width=slider.scrollWidth - 600 
+    console.log("Scrollx "+scrollX)
+    console.log("Scrolly "+scrollY)
+    console.log("ScrollW "+Width)
+    console.log("ScrollH "+Height)
+    if(  scrollX >Width ||
+      scrollY >Height ){
+        setScrollVall(true);
+      }
   }
+
 }

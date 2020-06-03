@@ -7,7 +7,12 @@ import useForceUpdate from "use-force-update";
 import DragWindow from "./ScrollbyMouse";
 import ImgIt from "./ImgItem";
 import {positionContext} from '../pages/App';
+import useMousePosition from './useMousePosition'
+import {scrollPos} from '../pages/App';
 var posArray = new Array(9);
+var horiontal;
+var Top;
+
 function AddNewArray() {
   var x = itemsArray.length;
   x++;
@@ -37,7 +42,11 @@ posArray.length = x;
     }
   }
 }
-function cellRenderer({ columnIndex, key, rowIndex, isScrolling, style }) {
+function cellRenderer({ columnIndex, key, rowIndex, scrollLeft,scrollTop, style }) {
+  horiontal=scrollLeft;
+  Top=scrollTop;
+
+  
   return (
     <div
       id={rowIndex + "" + columnIndex}
@@ -60,13 +69,15 @@ export default function ImgList() {
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(0);
   const {value,setValue }= useContext(positionContext)
+  const {x}=useMousePosition();
   useEffect(() => {
     sessionStorage.setItem("1", JSON.stringify(position1));
     //sessionStorage.setItem("card2", JSON.stringify(position2));
   }, []);
-
+  itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
  // itemsArray[1][3] = <ImgIt id={2} position={position2} />;
   const forceUpdate = useForceUpdate();
+  const {scrollVal,setScrollVall }= useContext(scrollPos)
   DragWindow();
 
   useEffect(() => {
@@ -74,24 +85,24 @@ export default function ImgList() {
  //   setposition2(JSON.parse(sessionStorage.getItem("card2")));
   }, [sessionStorage.getItem("1")]);
 
+  // useEffect(() => {
+  //   AddNewArray();
+  // }, []);
+console.log(scrollVal)
   useEffect(() => {
     AddNewArray();
-  }, []);
-
-  useEffect(() => {
-    console.log("entra aqui: " +vecY1  + vecX1);
-    AddNewArray();
-    itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
-    console.log(itemsArray);
+    setScrollVall(false)
     return () => {
       forceUpdate();
     };
-  }, [vecX1, vecY1]);
+  }, [scrollVal]);
 
   useEffect(() => {
     if (value.move==true) { 
+      setValue({...value,move:false})
       setvecX1(Math.floor(value.x/330));
       setvecY1(Math.floor(value.y/330));
+
     }
   }, [value.move]);
 
