@@ -8,40 +8,7 @@ export default function DragWindow() {
   let startY;
   var slider = document.querySelector("#Grid_PinPlane");
   const { scrollVal, setScrollVall } = useContext(scrollPos);
-  // for (var i = 0; i < img.length; i++) {
-  //   img[i].addEventListener("mouseenter", (e) => {
 
-  //     isDown = false;
-  //   });
-  //   img[i].addEventListener("mouseover", (e) => {
-
-  //     isDown = false;
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   for (var i = 0; i < img.length; i++) {
-  //     img[i].addEventListener("mouseenter", (e) => {
-
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //     img[i].addEventListener("mouseover", (e) => {
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //     img[i].addEventListener("mousedown", (e) => {
-  //       isDown = false;
-  //     });
-  //     img[i].addEventListener("mouseup", (e) => {
-  //       isDown = false;
-  //     });
-  //     img[i].addEventListener("mousemove", (e) => {
-  //       isDown = false;
-  //       e.stopPropagation();
-  //     });
-  //   }
-  // });
 
   function RespondMouseDown(e) {
     slider.classList.add("active");
@@ -99,10 +66,7 @@ export default function DragWindow() {
     var scrollY = Math.floor(slider.scrollTop + slider.clientHeight);
     var Height=slider.scrollHeight - 600
     var Width=slider.scrollWidth - 600 
-    console.log("Scrollx "+scrollX)
-    console.log("Scrolly "+scrollY)
-    console.log("ScrollW "+Width)
-    console.log("ScrollH "+Height)
+
     if(  scrollX >Width ||
       scrollY >Height ){
         setScrollVall(true);

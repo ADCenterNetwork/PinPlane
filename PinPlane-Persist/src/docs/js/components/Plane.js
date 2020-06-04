@@ -10,8 +10,7 @@ import {positionContext} from '../pages/App';
 import useMousePosition from './useMousePosition'
 import {scrollPos} from '../pages/App';
 var posArray = new Array(9);
-var horiontal;
-var Top;
+
 
 function AddNewArray() {
   var x = itemsArray.length;
@@ -43,10 +42,6 @@ posArray.length = x;
   }
 }
 function cellRenderer({ columnIndex, key, rowIndex, scrollLeft,scrollTop, style }) {
-  horiontal=scrollLeft;
-  Top=scrollTop;
-
-  
   return (
     <div
       id={rowIndex + "" + columnIndex}
@@ -72,22 +67,16 @@ export default function ImgList() {
   const {x}=useMousePosition();
   useEffect(() => {
     sessionStorage.setItem("1", JSON.stringify(position1));
-    //sessionStorage.setItem("card2", JSON.stringify(position2));
   }, []);
   itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
- // itemsArray[1][3] = <ImgIt id={2} position={position2} />;
   const forceUpdate = useForceUpdate();
   const {scrollVal,setScrollVall }= useContext(scrollPos)
   DragWindow();
-
   useEffect(() => {
     setposition1(JSON.parse(sessionStorage.getItem("1")));
  //   setposition2(JSON.parse(sessionStorage.getItem("card2")));
   }, [sessionStorage.getItem("1")]);
 
-  // useEffect(() => {
-  //   AddNewArray();
-  // }, []);
 console.log(scrollVal)
   useEffect(() => {
     AddNewArray();
