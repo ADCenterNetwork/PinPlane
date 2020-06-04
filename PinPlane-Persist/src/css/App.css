@@ -89,9 +89,9 @@ body,
   margin: 0px;
   padding: 0px;
 }
-/* ::-webkit-scrollbar{
+::-webkit-scrollbar{
   display: none;
-}  */
+} 
 
 .item {
   width: 300px;
