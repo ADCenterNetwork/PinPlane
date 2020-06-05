@@ -11,6 +11,16 @@ import useMousePosition from './useMousePosition'
 import {scrollPos} from '../pages/App';
 var posArray = new Array(9);
 
+function Create2DArray(rows) {
+  var arr = [];
+
+  for (var i=0;i<rows;i++) {
+     arr[i] = new Array(rows);
+  }
+
+  return arr;
+}
+const auxArray=Create2DArray(2);
 
 function AddNewArray() {
   var x = itemsArray.length;
@@ -41,7 +51,7 @@ posArray.length = x;
     }
   }
 }
-function cellRenderer({ columnIndex, key, rowIndex, scrollLeft,scrollTop, style }) {
+function cellRenderer({ columnIndex, key, rowIndex, style }) {
   return (
     <div
       id={rowIndex + "" + columnIndex}
@@ -60,24 +70,27 @@ function cellRenderer({ columnIndex, key, rowIndex, scrollLeft,scrollTop, style 
 }
 
 export default function ImgList() {
-  const [position1, setposition1] = useState({ x: 0, y: 61 });
+  // const [position1, setposition1] = useState({ x: 0, y: 61 });
   const [vecY1, setvecY1] = useState(0);
   const [vecX1, setvecX1] = useState(0);
-  const {value,setValue }= useContext(positionContext)
+ 
   const {x}=useMousePosition();
-  useEffect(() => {
-    sessionStorage.setItem("1", JSON.stringify(position1));
-  }, []);
-  itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+  const {value,setValue }= useContext(positionContext)
+  // useEffect(() => {
+  //   sessionStorage.setItem("1", JSON.stringify(position1));
+  // }, []);
+  itemsArray[vecY1][vecX1] = <ImgIt id={1} />;
   const forceUpdate = useForceUpdate();
   const {scrollVal,setScrollVall }= useContext(scrollPos)
   DragWindow();
+  // useEffect(() => {
+//     setposition1(JSON.parse(sessionStorage.getItem("1")));
+//  //   setposition2(JSON.parse(sessionStorage.getItem("card2")));
+//   }, [sessionStorage.getItem("1")]);
   useEffect(() => {
-    setposition1(JSON.parse(sessionStorage.getItem("1")));
- //   setposition2(JSON.parse(sessionStorage.getItem("card2")));
-  }, [sessionStorage.getItem("1")]);
-
-console.log(scrollVal)
+         forceUpdate();
+    
+  }, [])
   useEffect(() => {
     AddNewArray();
     setScrollVall(false)
@@ -86,17 +99,33 @@ console.log(scrollVal)
     };
   }, [scrollVal]);
 
+
+  // useEffect(() => {
+  //   AddNewArray();
+  //   itemsArray[vecY1][vecX1] = <ImgIt id={1} position={position1} />;
+  //   return () => {
+  //     forceUpdate();
+  //   };
+  // }, [vecX1, vecY1]);
   useEffect(() => {
+    auxArray[0][0]=itemsArray[vecY1][vecX1];
+    itemsArray[vecY1][vecX1]="";
     if (value.move==true) { 
       setValue({...value,move:false})
+
       setvecX1(Math.floor(value.x/330));
       setvecY1(Math.floor(value.y/330));
 
-    }
-  }, [value.move]);
 
+    }
+
+    return()=>{
+
+      auxArray[0][0]=itemsArray[vecY1][vecX1];
+    };
+  }, [value.move]);
+  console.log(itemsArray)
   return (
-    <React.Fragment>
        <AutoSizer>
       {({ height, width }) => (
         <div style={{ height: height, width: width }}>
@@ -114,8 +143,6 @@ console.log(scrollVal)
         </div>
       )}
     </AutoSizer>
-
-    </React.Fragment>
    
   );
 }

@@ -20,8 +20,8 @@ function ImgIt(props) {
     },
   });
   const onControlledDrag = (e, position) => {
-    const { x, y } = position; // actualizo la posicion del item
-    setState({ controlledPosition: { x, y } });
+    // const { x, y } = position; // actualizo la posicion del item
+    // setState({ controlledPosition: { x, y } });
     setValue({x:xm,y:ym,move:false});
     e.stopPropagation();
   };
@@ -61,12 +61,10 @@ function ImgIt(props) {
     //sessionStorage.setItem("card" + e.target.id, JSON.stringify(position));
   };
 
-
-  const controlledPosition = state.controlledPosition;
   return (
     <Draggable
-    position={props.position}
-    onDrag={(e,position)=>onControlledDrag(e,position)}
+    // position={props.position}
+    onDrag={(e)=>onControlledDrag(e)}
     onStart={(e)=>{
       e.stopPropagation();
     }}
